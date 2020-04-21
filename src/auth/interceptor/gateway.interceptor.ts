@@ -13,13 +13,13 @@ import { WsException } from "@nestjs/websockets";
 @Injectable()
 export class GatewayInterceptor implements NestInterceptor {
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
-    console.log("Interceptor Before...");
+   // console.log("Interceptor Before...");
     const token = context.getArgs()[1]["token"];
 
     context.getArgs()[1]["user"] = "User";
     const now = Date.now();
     return next
       .handle()
-      .pipe(tap(() => console.log(`After... ${Date.now() - now}ms`)));
+      .pipe(tap(/* () => console.log(`After... ${Date.now() - now}ms`) */));
   }
 }

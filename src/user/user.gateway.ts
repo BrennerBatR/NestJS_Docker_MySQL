@@ -1,20 +1,42 @@
 import {
-  MessageBody,
   SubscribeMessage,
   WebSocketGateway,
+  OnGatewayInit,
+  WebSocketServer,
+  OnGatewayConnection,
+  OnGatewayDisconnect,
+  MessageBody,
 } from "@nestjs/websockets";
-import { Socket } from "dgram";
 import { UseInterceptors } from "@nestjs/common";
 import { GatewayInterceptor } from "../auth/interceptor/gateway.interceptor";
+import { Socket, Server } from "socket.io";
+import { Logger } from "@nestjs/common";
 
 @UseInterceptors(GatewayInterceptor)
 @WebSocketGateway({ namespace: "users", transports: ["websocket"] })
 export class UserGateway {
-  @SubscribeMessage("users")
+  @WebSocketServer() server: Server;
+  private logger: Logger = new Logger("AppGateway");
+
+  afterInit(server: Server) {
+    this.logger.log("Init");
+  }
+
+  handleDisconnect(client: Socket) {
+    this.logger.log(`Client disconnected: ${client.id}`);
+  }
+
+  handleConnection(client: Socket, ...args: any[]) {
+    this.logger.log(`Client connected: ${client.id}`);
+  }
+
+  @SubscribeMessage("newMsg")
   async findAll(client: Socket, data: any) {
-    console.log("SOCKET" , client);
-    console.log("ENTROU!", data);
-    client.emit("teste", "recebido");
+    const obj = {
+      msg: data.msg,
+      user: client.id,
+    };
+    client.emit("msgToClient", obj);
 
     /*    return from(contacts.userContact).pipe(
       map(item => ({ event: 'contacts', data: item })),
