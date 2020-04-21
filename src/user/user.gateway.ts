@@ -7,7 +7,6 @@ import { Socket } from "dgram";
 import { UseInterceptors } from "@nestjs/common";
 import { GatewayInterceptor } from "../auth/interceptor/gateway.interceptor";
 
-//@UseGuards(SocketGuard)
 @UseInterceptors(GatewayInterceptor)
 @WebSocketGateway({ namespace: "users", transports: ["websocket"] })
 export class UserGateway {
