@@ -10,7 +10,7 @@
     "build": "tsc -p tsconfig.build.json",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "node dist/main.js",
-    "start:dev": "nodemon src/main.ts",
+    "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
     "lint": "tslint -p tsconfig.json -c tslint.json",
@@ -21,12 +21,15 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
-    "@nestjs/common": "^6.7.2",
-    "@nestjs/core": "^6.7.2",
+    "@nestjs/common": "7.0.7",
+    "@nestjs/core": "7.0.7",
     "@nestjs/platform-express": "^6.7.2",
     "@nestjs/platform-fastify": "^6.10.7",
+    "@nestjs/platform-socket.io": "7.0.7",
+    "@nestjs/platform-ws": "^7.0.8",
     "@nestjs/swagger": "^3.1.0",
     "@nestjs/typeorm": "^6.2.0",
+    "@nestjs/websockets": "^7.0.7",
     "@nestjsx/crud": "^4.2.0",
     "@nestjsx/crud-typeorm": "^4.2.0",
     "class-transformer": "^0.2.3",
@@ -38,6 +41,8 @@
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.0",
     "rxjs": "^6.5.3",
+    "socketio-wildcard": "^2.0.0",
+    "ts-express-decorators": "^5.47.0",
     "typeorm": "^0.2.21"
   },
   "devDependencies": {
