@@ -17,7 +17,7 @@ import {
 } from "@nestjs/swagger";
 
 @ApiUseTags("Socket")
-@Controller("socket")
+@Controller("sockets")
 export class SocketController {
   constructor(private readonly socketService: SocketService) {}
 

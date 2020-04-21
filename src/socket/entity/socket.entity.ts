@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, ManyToMany, OneToMany, ManyToOne } from "typeorm";
 import { ApiModelProperty } from "@nestjs/swagger";
 import { IsNotEmpty, IsEmail } from "class-validator";
-import { User } from "src/user/entity/user.entity";
+import { User } from "../../user/entity/user.entity";
 
 @Entity()
 export class Socket extends BaseEntity{
