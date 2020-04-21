@@ -5,10 +5,12 @@ import {
   Column,
   PrimaryGeneratedColumn,
   CreateDateColumn,
-  UpdateDateColumn
+  UpdateDateColumn,
+  OneToMany,
 } from "typeorm";
 import { IsNotEmpty } from "class-validator";
 import { ApiModelProperty } from "@nestjs/swagger";
+import { Socket } from "../../socket/entity/socket.entity";
 
 @Entity()
 @Unique(["cpf"])
@@ -33,17 +35,23 @@ export class User extends BaseEntity {
 
   @CreateDateColumn({
     type: "timestamp",
-    name: "create_date"
+    name: "create_date",
   })
   createDate: string;
 
   @UpdateDateColumn({
     type: "timestamp",
     name: "update_date",
-    select: false
+    select: false,
   })
   updateDate: string;
 
   @Column({ type: "bool", name: "active", default: true })
   active: boolean;
+
+  @OneToMany(
+    () => Socket,
+    socket => socket.user
+  )
+  sockets: Socket[];
 }
